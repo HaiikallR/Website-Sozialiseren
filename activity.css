@@ -1,0 +1,651 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+/* General Body Styles */
+body {
+  margin: 0;
+  background-color: #f4f4f4;
+  display: flex;
+  flex-direction: column;
+  font-family: Poppins;
+
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+header {
+  width: 1540px;
+  max-width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  height: 100px;
+  align-items: center;
+  background-color: white;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+}
+
+.nav-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex; /* Menu ditampilkan berdampingan di desktop */
+}
+
+.nav-menu li {
+  margin-left: 25px;
+}
+
+.nav-menu a {
+  color: grey;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.nav-menu a:hover {
+  background-color: #555;
+}
+.hamburger {
+  display: none; /* Sembunyikan ikon hamburger di desktop */
+  cursor: pointer;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 25px;
+  z-index: 1001; /* Pastikan hamburger di atas menu saat aktif */
+}
+
+.hamburger .bar {
+  width: 100%;
+  height: 3px;
+  background-color: white; /* Pastikan kontras dengan background header */
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
+}
+.hamburger.active .bar:nth-child(1) {
+  transform: translateY(11px) rotate(45deg);
+}
+
+.hamburger.active .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active .bar:nth-child(3) {
+  transform: translateY(-11px) rotate(-45deg);
+}
+
+/* Hero Section (untuk background image) */
+.hero-section {
+  position: relative; /* Penting untuk positioning anak-anak absolut */
+  width: 100%;
+  height: 600px; /* Sesuaikan tinggi sesuai kebutuhan Anda */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* <-- UBAH INI: Konten akan rata atas */
+  color: #333;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* Gambar latar belakang */
+.hero-background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Pastikan gambar menutupi area tanpa terdistorsi */
+  z-index: 1; /* Di bawah overlay dan konten */
+}
+
+/* Overlay dengan gradient untuk efek pudar */
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+        /* Layer 1: Linear gradient untuk efek pudar di bagian bawah (dari transparan ke putih) */ linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.5) 80%,
+      rgba(255, 255, 255, 1) 100%
+    ),
+    /* Layer 2: Linear gradient untuk efek pudar di bagian atas (dari putih ke transparan) */
+      linear-gradient(
+        to top,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.5) 50%,
+        rgba(255, 255, 255, 1) 100%
+      );
+  z-index: 2; /* Di atas gambar, di bawah konten */
+}
+
+/* Konten utama di atas background */
+.hero-content {
+  position: relative; /* Penting agar z-index bekerja */
+  z-index: 3; /* Paling atas */
+  font-size: 2.5em;
+  font-weight: bold;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+  padding-top: 100px;
+  color: #333; /* Pastikan warna teks cocok dengan background */
+}
+
+/* ============================================== */
+/* CSS untuk Card Slider di bawahnya (dari jawaban sebelumnya) */
+/* ============================================== */
+
+/* Custom Slider Section */
+.custom-slider-section {
+  width: 100%;
+  max-width: 1400px;
+  padding: 60px 20px;
+  box-sizing: border-box;
+  background-color: transparent; /* Kontainer transparan */
+  margin-top: -100px; /* Geser ke atas menimpa hero section */
+  position: relative;
+  z-index: 5;
+  /* Tambahkan perspective untuk efek 3D pada child elements */
+  perspective: 1200px; /* Sesuaikan nilai ini untuk kontrol kedalaman */
+}
+
+.custom-slider-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden; /* Tetap hidden untuk menghindari scrollbar yang tidak diinginkan */
+}
+
+.custom-slider-wrapper {
+  overflow: hidden; /* Penting untuk menyembunyikan kartu di luar viewport */
+  width: 100%;
+  padding: 20px 0;
+}
+
+.custom-slider-track {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  /* Transisi untuk properti transform global (posisi dan rotasi) */
+  transition: transform 0.6s ease-in-out; /* Transisi lebih panjang untuk efek membuka buku */
+  will-change: transform;
+  transform-style: preserve-3d; /* Penting untuk efek 3D pada children */
+}
+
+.custom-card {
+  flex: 0 0 auto;
+  width: 300px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  text-align: center;
+  margin: 0 15px;
+  /* Transisi untuk transform card individu */
+  transition: transform 0.6s ease-in-out, box-shadow 0.3s ease-out,
+    margin 0.3s ease-out, width 0.3s ease-out;
+  cursor: grab;
+  position: relative;
+  z-index: 1;
+  transform-origin: center center; /* Default origin */
+}
+
+.custom-card img {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  border-bottom: 1px solid #eee;
+}
+
+.custom-card h3 {
+  font-size: 1.3em;
+  color: #333;
+  margin: 15px 10px 5px;
+}
+
+.custom-card p {
+  font-size: 0.95em;
+  color: #666;
+  margin: 0 10px 15px;
+}
+
+/* Styling untuk kartu tengah yang lebih menonjol */
+.custom-card.is-middle {
+  transform: scale(1.1) rotateY(0deg); /* Skala lebih besar, tidak miring */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+  margin: 0 25px;
+}
+
+/* Styling untuk kartu di sisi kiri (akan berputar ke kanan) */
+.custom-card.is-left {
+  transform: scale(0.95) rotateY(15deg); /* Sedikit kecil, miring ke kanan */
+  transform-origin: right center; /* Rotasi dari sisi kanan kartu */
+  filter: brightness(0.8); /* Agak gelap */
+  z-index: 5;
+}
+
+/* Styling untuk kartu di sisi kanan (akan berputar ke kiri) */
+.custom-card.is-right {
+  transform: scale(0.95) rotateY(-15deg); /* Sedikit kecil, miring ke kiri */
+  transform-origin: left center; /* Rotasi dari sisi kiri kartu */
+  filter: brightness(0.8); /* Agak gelap */
+  z-index: 5;
+}
+
+/* Navigation Buttons */
+.slider-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5em;
+  cursor: pointer;
+  z-index: 15;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.slider-button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+  transform: translateY(-50%) scale(1.05);
+}
+
+.slider-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.prev-button {
+  left: 20px;
+}
+
+.next-button {
+  right: 20px;
+}
+/* Footer Styles */
+.footer {
+  background-color: #fff; /* Warna latar belakang footer */
+  padding: 40px 0 20px 0; /* Padding atas, bawah, kiri kanan 0 */
+  border-top: 1px solid #eee; /* Garis tipis di atas footer */
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05); /* Sedikit bayangan di atas */
+  width: 1510px;
+  height: 400px;
+}
+
+.footer-content {
+  display: flex;
+  flex-wrap: wrap; /* Mengizinkan kolom untuk wrap di layar kecil */
+  justify-content: space-around; /* Menyebarkan kolom secara merata */
+  max-width: 1200px; /* Lebar maksimum seperti di konten utama */
+  margin: 0 auto; /* Tengah secara horizontal */
+  padding: 0 20px; /* Padding samping agar konten tidak menempel tepi */
+  gap: 30px; /* Jarak antar kolom */
+  align-items: flex-start; /* Menyusun item di bagian atas */
+}
+
+.footer-column {
+  flex: 1; /* Setiap kolom akan mengambil ruang yang sama */
+  min-width: 250px; /* Lebar minimum sebelum wrap */
+  padding: 15px 0; /* Padding dalam kolom */
+}
+
+.footer-column h3 {
+  font-size: 1.2em;
+  color: #333;
+  margin-bottom: 20px;
+  font-weight: 600; /* Tebal seperti di gambar */
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-column ul li {
+  margin-bottom: 10px;
+}
+
+.footer-column ul li a {
+  color: #666;
+  text-decoration: none;
+  font-size: 0.95em;
+  transition: color 0.3s ease;
+}
+
+.footer-column ul li a:hover {
+  color: #007bff; /* Contoh warna hover */
+}
+
+/* Logo & Social Media Column */
+.logo-social-column {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* Flex grow unset agar tidak terlalu besar di desktop */
+  flex: 0 1 300px; /* Flex-grow 0, flex-shrink 1, basis 300px */
+  min-width: 200px; /* Minimum width for logo column */
+}
+
+.logo-social-column img {
+  max-width: 150px; /* Lebar logo */
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.social-icons {
+  display: flex;
+  gap: 15px; /* Jarak antar ikon sosial */
+  margin-top: 10px;
+}
+
+.social-icons a {
+  display: inline-flex;
+  width: 40px;
+  height: 40px;
+  background-color: #333; /* Warna background ikon */
+  color: #fff;
+  border-radius: 5px; /* Border radius ikon */
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1em;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.social-icons a:hover {
+  background-color: #007bff; /* Warna hover ikon */
+}
+
+/* Contact Info Column */
+.contact-info-column {
+  text-align: right; /* Teks rata kiri */
+}
+
+.contact-info-column ul li {
+  /* Untuk ikon dan teks sejajar */
+
+  margin-bottom: 10px;
+  font-size: 0.95em;
+
+  color: #666;
+}
+
+.contact-info-column ul li i {
+  margin-right: 10px;
+  color: #555; /* Warna ikon kontak */
+  font-size: 1.1em;
+  text-align: right; /* Teks rata kiri */
+}
+
+/* Copyright Section */
+.footer-copyright {
+  text-align: center;
+  padding: 20px 20px 0;
+  margin-top: 20px; /* Jarak dari konten footer utama */
+  border-top: 1px solid #eee; /* Garis di atas copyright */
+  color: #777;
+  font-size: 0.9em;
+}
+/*Footer styling end*/
+
+/* Quick Links Styling */
+.quick-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.quick-links li {
+  margin-bottom: 10px;
+}
+
+.quick-links a {
+  text-decoration: none;
+  color: #555; /* Warna link */
+  transition: color 0.3s ease;
+  font-size: 0.95em;
+}
+
+.quick-links a:hover {
+  color: #000; /* Warna link saat di-hover */
+}
+
+/* Logo and Social Media Styling */
+.logo-social {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Tengahkan logo dan ikon */
+}
+
+.footer-logo {
+  max-width: 150px; /* Sesuaikan ukuran logo */
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.logo-tagline {
+  font-size: 0.9em;
+  color: #666;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.social-icons {
+  display: flex;
+  gap: 15px; /* Jarak antar ikon */
+}
+
+.social-icons a {
+  color: #fff; /* Warna ikon */
+  background-color: #4a6fa5; /* Background ikon */
+  width: 40px;
+  height: 40px;
+  border-radius: 8px; /* Sudut ikon membulat */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2em;
+  transition: background-color 0.3s ease;
+}
+
+.social-icons a:hover {
+  background-color: #3a5b8a; /* Warna background ikon saat di-hover */
+}
+
+/* Contact Info Styling */
+.contact-info {
+  /* Sudah disetel text-align: left dan align-items: flex-start di .footer-column.contact-info */
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start; /* Agar ikon dan teks sejajar di awal */
+  margin-bottom: 10px;
+  color: #555;
+  font-size: 0.95em;
+}
+
+.contact-item i {
+  margin-right: 10px; /* Jarak antara ikon dan teks */
+  color: #4a6fa5; /* Warna ikon kontak */
+  font-size: 1em; /* Ukuran ikon kontak */
+  margin-top: 2px; /* Penyesuaian vertikal agar ikon sejajar dengan teks */
+}
+
+/* Footer Bottom (Copyright) Styling */
+.footer-bottom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 20px;
+  text-align: center;
+  border: 2px solid;
+}
+
+.footer-divider {
+  border: none;
+  border-top: 1px solid #e0e0e0; /* Garis horizontal */
+  margin: 20px auto;
+  width: 80%; /* Lebar garis */
+}
+
+.copyright {
+  font-size: 0.85em;
+  color: #777;
+  margin: 0;
+}
+/* ============================================== */
+/* MEDIA QUERIES UNTUK RESPONSIVITAS */
+/* ============================================== */
+
+/* Tablet View (e.g., 768px to 1024px) */
+@media (max-width: 1024px) {
+  .custom-slider-track {
+    justify-content: flex-start; /* Pastikan selalu geser dari kiri */
+  }
+  .custom-card {
+    width: 280px; /* Sedikit lebih kecil di tablet */
+    margin: 0 10px; /* Kurangi margin antar kartu */
+  }
+  .custom-card.is-middle {
+    transform: scale(1.08); /* Skala sedikit lebih kecil dari desktop */
+    margin: 0 15px; /* Sesuaikan margin */
+  }
+  .slider-button {
+    width: 45px;
+    height: 45px;
+    font-size: 1.3em;
+  }
+  .prev-button {
+    left: 10px;
+  }
+  .next-button {
+    right: 10px;
+  }
+
+  /* Sesuaikan hero section di tablet */
+  .hero-section {
+    height: 500px;
+  }
+  .hero-content {
+    font-size: 2em;
+  }
+}
+
+/* Mobile View (e.g., max-width 767px) - Full slider, 1 card per view */
+@media (max-width: 1024px) {
+  .hero-section {
+    height: 500px;
+    padding-top: 100px;
+  }
+  .hero-content {
+    font-size: 2em;
+  }
+
+  .custom-slider-section {
+    margin-top: -80px;
+    perspective: 1000px; /* Sesuaikan perspektif di tablet */
+  }
+  .custom-card {
+    width: 280px;
+    margin: 0 10px;
+  }
+  .custom-card.is-middle {
+    transform: scale(1.08) rotateY(0deg);
+    margin: 0 15px;
+  }
+  .custom-card.is-left {
+    transform: scale(0.9) rotateY(10deg); /* Rotasi sedikit kurang */
+    filter: brightness(0.9);
+  }
+  .custom-card.is-right {
+    transform: scale(0.9) rotateY(-10deg); /* Rotasi sedikit kurang */
+    filter: brightness(0.9);
+  }
+  .slider-button {
+    width: 45px;
+    height: 45px;
+    font-size: 1.3em;
+  }
+  .prev-button {
+    left: 10px;
+  }
+  .next-button {
+    right: 10px;
+  }
+}
+
+/* Mobile View (e.g., max-width 767px) - Full slider, 1 card per view */
+@media (max-width: 767px) {
+  .hero-section {
+    height: 350px;
+    padding-top: 80px;
+  }
+  .hero-content {
+    font-size: 1.5em;
+  }
+
+  .custom-slider-section {
+    margin-top: -50px;
+    padding: 40px 10px;
+    perspective: none; /* Hapus perspektif untuk mobile */
+  }
+  .custom-card {
+    width: 85%;
+    max-width: 350px;
+    margin: 0 10px;
+    /* Di mobile, kartu tidak miring */
+    transform: scale(1) rotateY(0deg) !important; /* Penting: override transform dari JS */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    z-index: 1;
+    filter: none !important; /* Hapus filter brightness */
+  }
+  .custom-card.is-middle,
+  .custom-card.is-left,
+  .custom-card.is-right {
+    transform: scale(1) rotateY(0deg); /* Pastikan tidak ada transform untuk mobile */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    z-index: 1;
+    margin: 0 10px;
+    filter: none;
+  }
+  .slider-button {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2em;
+  }
+  .prev-button {
+    left: 5px;
+  }
+  .next-button {
+    right: 5px;
+  }
+}
+
+/* Sangat kecil (contoh: di bawah 480px) */
+@media (max-width: 480px) {
+  .custom-card {
+    width: 90%;
+    margin: 0 5px;
+  }
+}

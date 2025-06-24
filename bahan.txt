@@ -1,0 +1,26 @@
+Airpods Slider website 
+Neon button
+Solar System Explorer - header
+shopping page animation - kegiatan
+beginner friendly
+icon menu animation
+
+Kekurangan 
+1.Memasukkan gambar 
+2. Responsive design (Artkicle)
+3. AOS 
+3.Pada bagian acivity menambahkan seleksi tahun pada foto
+lalu dibawahnya diberikan narasi 
+4.Pada bagian article diberikan container dengan border radius 
+5.pada bagian nav activity dibagi menjadi sesuai activity
+
+
+.About-card .aboutus {
+  position: absolute;
+  width: 50%;
+  left: 20%;
+  padding: 20px 20px 20px 40px;
+  opacity: 0; /* Awalnya tersembunyi */
+  transition: 0.5s;
+  visibility: hidden;
+}
